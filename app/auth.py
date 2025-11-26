@@ -14,7 +14,7 @@ def helloworld():
 @auth.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
-    if User.query.filter_by((User.username == data['username']) | (User.email == data['email'])).first():
+    if User.query.filter((User.username == data['username']) | (User.email == data['email'])).first():
         return jsonify({"error": "User already exists"}), 400
     user = User(username=data['username'], email=data['email'])
     user.set_password(data['password'])
